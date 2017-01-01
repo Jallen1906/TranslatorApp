@@ -10,7 +10,7 @@ from abc import *
 import urllib2
 import urllib
 import HTMLParser
-
+import utils
 
 class Translator:
     __metaclass__ = ABCMeta
@@ -47,9 +47,10 @@ class Translator:
     @abstractmethod
     def translateParagraph(self, inputText):
         """Translates an entire paragraph"""
-    languages = ["fr", "en", "ge"]
+    #languages = ["fr", "en", "ge"]
 
 # Implementation of the Google API derivation of the Translator ABC
+#TODO: Add different encoding if language chosen is different.
 class GoogleApiTranslator(Translator):
     
     base_link = "http://translate.google.com/m?hl=%s&sl=%s&q=%s"
@@ -74,7 +75,7 @@ class GoogleApiTranslator(Translator):
         self.initialise(language)
     def initialise(self, language):
         returnCode = False
-        if language in Translator.languages:
+        if language in utils.Languages:
             self.language = language
             returnCode = True
             returnCode = self.checkConnection()
